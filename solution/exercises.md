@@ -60,9 +60,9 @@ Số từ thực tế: 134 từ
 Ước tính theo công thức (số từ / 0.75): ~178 token
 Số token đếm bằng tiktoken (GPT-4o): 183 token
 Độ chênh lệch: Thực tế cao hơn ước lượng khoảng ~2.8%.
+Vì sao tiếng Việt thường tốn nhiều token hơn tiếng Anh cùng độ dài?
 Đặc điểm ngôn ngữ đơn âm tiết: Trong tiếng Việt, các âm tiết (tiếng) được viết tách rời bằng dấu cách (ví dụ: "quốc gia" là 2 từ đơn), trong khi tiếng Anh thường gộp thành 1 từ (ví dụ: "nation"). Do đó, cùng một lượng thông tin, tiếng Việt có số lượng "từ" (cách nhau bởi dấu cách) nhiều hơn tiếng Anh.
 Hạn chế của bộ mã hóa (Tokenizer): Tokenizer của các mô hình LLM chủ yếu được huấn luyện trên kho dữ liệu khổng lồ bằng tiếng Anh. Một từ tiếng Anh phổ biến có thể được mã hóa thành 1 token, nhưng một từ tiếng Việt có dấu (đặc biệt là các từ ít phổ biến) thường bị chẻ nhỏ thành 2-3 token.
-
 ---
 
 ## Block 3 — Streaming & Độ Bền (trả lời sau Checkpoint 3)
