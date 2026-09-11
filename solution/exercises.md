@@ -28,13 +28,10 @@ mỗi lần trung bình ~350 token đầu ra.
 **Ước tính GPT-4o đắt hơn GPT-4o-mini bao nhiêu lần cho workload này? Nêu một
 trường hợp GPT-4o xứng đáng với chi phí và một trường hợp nên dùng mini:**
 >Dựa trên bảng giá hiện tại của OpenAI:
-
 GPT-4o: Đầu vào: $2.50 / 1M token | Đầu ra: $10.00 / 1M token
 GPT-4o-mini: Đầu vào: $0.150 / 1M token | Đầu ra: $0.600 / 1M token
 Ước tính chênh lệch chi phí: Chi phí của GPT-4o cao hơn GPT-4o-mini khoảng 16,67 lần (ở cả đầu vào và đầu ra: 10 / 0.6 ≈ 16.67). Đối với kịch bản có lượng người dùng lớn (10.000 users × 3 lượt = 30.000 lượt gọi/ngày), sự chênh lệch 16.67 lần này sẽ tạo ra một khoảng cách khổng lồ về mặt ngân sách (hàng nghìn USD mỗi tháng).
-
 Trường hợp sử dụng:
-
 Nên dùng GPT-4o (Xứng đáng với chi phí): Các tác vụ đòi hỏi khả năng tư duy logic và suy luận phức tạp, phân tích dữ liệu chuyên sâu, viết code phức tạp, hoặc khi cần đọc hiểu hình ảnh/tài liệu khó (ví dụ: trợ lý phân tích tài chính, chatbot tư vấn pháp lý).
 Nên dùng GPT-4o-mini: Các tác vụ có khối lượng lớn (high-volume) nhưng yêu cầu suy luận cơ bản như: tóm tắt văn bản, phân loại ý định khách hàng (intent classification), dịch thuật cơ bản, hoặc chatbot trả lời các câu hỏi FAQ đơn giản dựa trên tài liệu có sẵn.
 
@@ -59,15 +56,13 @@ Chọn một đoạn văn tiếng Việt ~100 từ. So sánh số token theo `co
 **Hai con số chênh nhau bao nhiêu phần trăm? Vì sao tiếng Việt thường tốn
 nhiều token hơn tiếng Anh cùng độ dài?**
 >Đoạn văn ví dụ (~134 từ): "Việt Nam là một quốc gia nằm ở bán đảo Đông Dương thuộc khu vực Đông Nam Á. Đất nước này có hình chữ S, phía bắc giáp Trung Quốc, phía tây giáp Lào và Campuchia, phía đông và phía nam giáp Biển Đông. Với lịch sử hàng ngàn năm văn hiến, Việt Nam tự hào về một nền văn hóa đa dạng, phong phú với 54 dân tộc anh em cùng chung sống. Cảnh quan thiên nhiên của Việt Nam vô cùng tươi đẹp, từ những dãy núi hùng vĩ ở phía Bắc, những bãi biển cát trắng trải dài ở miền Trung..."
-
 Số từ thực tế: 134 từ
 Ước tính theo công thức (số từ / 0.75): ~178 token
 Số token đếm bằng tiktoken (GPT-4o): 183 token
 Độ chênh lệch: Thực tế cao hơn ước lượng khoảng ~2.8%.
-Vì sao tiếng Việt thường tốn nhiều token hơn tiếng Anh cùng độ dài?
-
 Đặc điểm ngôn ngữ đơn âm tiết: Trong tiếng Việt, các âm tiết (tiếng) được viết tách rời bằng dấu cách (ví dụ: "quốc gia" là 2 từ đơn), trong khi tiếng Anh thường gộp thành 1 từ (ví dụ: "nation"). Do đó, cùng một lượng thông tin, tiếng Việt có số lượng "từ" (cách nhau bởi dấu cách) nhiều hơn tiếng Anh.
 Hạn chế của bộ mã hóa (Tokenizer): Tokenizer của các mô hình LLM chủ yếu được huấn luyện trên kho dữ liệu khổng lồ bằng tiếng Anh. Một từ tiếng Anh phổ biến có thể được mã hóa thành 1 token, nhưng một từ tiếng Việt có dấu (đặc biệt là các từ ít phổ biến) thường bị chẻ nhỏ thành 2-3 token.
+
 ---
 
 ## Block 3 — Streaming & Độ Bền (trả lời sau Checkpoint 3)
@@ -93,7 +88,6 @@ thích 1–2 lựa chọn từ ngữ quan trọng trong prompt (ví dụ: vì sa
 "trả lời ngắn gọn", vì sao chỉ định ngôn ngữ...):**
 > Persona: Trợ lý học tập chuyên lập trình cho người mới bắt đầu. System Prompt: "Bạn là trợ lý học tập lập trình thân thiện. Luôn trả lời ngắn gọn bằng tiếng Việt, cung cấp code mẫu kèm bình luận chi tiết, và dùng phép ẩn dụ đời thường để giải thích các khái niệm khó." 
 Giải thích từ ngữ quan trọng:
-
 "bằng tiếng Việt": Bắt buộc mô hình giữ ngôn ngữ nhất quán, tránh tình trạng tự động chuyển sang tiếng Anh khi gặp các từ khóa lập trình (vì tài liệu lập trình chủ yếu bằng tiếng Anh).
 "ngắn gọn": Đảm bảo mô hình đi thẳng vào vấn đề thay vì viết các đoạn lý thuyết dài dòng gây quá tải thông tin cho người mới bắt đầu.
 
@@ -102,7 +96,6 @@ Giải thích từ ngữ quan trọng:
 không có bộ nhớ dài hạn, không kiểm duyệt nội dung...)? Đề xuất một cải
 thiện cụ thể và mô tả ngắn cách triển khai:**
 > Hạn chế lớn nhất: Trợ lý hiện tại sử dụng cơ chế "cắt cụt lịch sử" (chỉ giữ lại 3 lượt gần nhất). Điều này khiến nó mắc bệnh "mất trí nhớ ngắn hạn" — nó sẽ quên hoàn toàn bối cảnh tổng thể của cuộc trò chuyện, tên người dùng, hay mục tiêu ban đầu ngay khi cuộc hội thoại vượt quá 3 lượt.
-
 Đề xuất cải thiện: Triển khai "Tóm tắt lịch sử cuốn chiếu" (Sliding Window Summarization). Cách triển khai: Thay vì xóa hẳn các tin nhắn cũ hơn 3 lượt, mỗi khi lịch sử đạt đến ngưỡng, ta sẽ gọi API một lần (bằng một model giá rẻ như GPT-4o-mini) để yêu cầu mô hình tóm tắt lại toàn bộ nội dung các tin nhắn cũ đó thành 1-2 câu ngắn gọn. Sau đó, ta nối phần "tóm tắt bối cảnh" này vào đầu mảng history mới. Nhờ vậy, trợ lý vừa tiết kiệm được token ở mỗi lượt gọi, vừa duy trì được bộ nhớ dài hạn.
 
 ---
